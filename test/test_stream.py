@@ -8,7 +8,6 @@ from functional.stream import Consumable, AlreadyConsumedException
 
 
 def mapper(x: int) -> int:
-    print(x)
     return x + 1
 
 
@@ -18,7 +17,7 @@ def flat_generator(x: int) -> Iterable[int]:
 
 
 def flat_list(x: int) -> Iterable[int]:
-    return [x for index in range(x)]
+    return [x for _ in range(x)]
 
 
 class TestConsumable:
@@ -50,6 +49,11 @@ class TestStream:
         result = self.uut.flat_map(flat_generator).as_tuple()
 
         assert_that(result).contains_only(1, 2, 2)
+
+    def test_flat_map_handles_none_result(self):
+        result = self.uut.flat_map(lambda x: None).as_tuple()
+
+        assert_that(result).is_empty()
 
     def test_flat_map_list(self):
         result = self.uut.flat_map(flat_list).as_tuple()
