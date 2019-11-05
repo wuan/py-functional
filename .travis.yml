@@ -1,0 +1,19 @@
+language: python
+
+python:
+    - "3.5"
+    - "3.6"
+    - "3.7"
+
+install:
+  # install deps
+  - pip install -r requirements.txt
+  - pip install pytest-cov mock assertpy python-coveralls
+  - pip list
+
+script:
+  - py.test --cov-report term-missing --cov-config .coveragerc --cov=functional
+  - py.test -v --cov functional --cov-report term-missing
+
+after_success:
+  - coveralls
