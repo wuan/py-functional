@@ -19,6 +19,14 @@ class Consumable:
         self.consumed = True
 
 
+def _wrap(iterable):
+    return Stream(iterable)
+
+
+def _iterable(iterable):
+    return iterable if iterable else ()
+
+
 class Stream(Generic[T], Consumable):
 
     def __init__(self, generator=None):
@@ -27,18 +35,12 @@ class Stream(Generic[T], Consumable):
 
     def map(self, mapper: Callable[[T], U]) -> 'Stream[U]':
         self._consume()
-        return self._wrap((mapper(element) for element in self._generator))
+        return _wrap((mapper(element) for element in self._generator))
 
     def flat_map(self, flat_mapper: Callable[[T], Iterable[U]]) -> 'Stream[U]':
         self._consume()
-        return self._wrap((result for element in self._generator for result in self._iterable(flat_mapper(element))))
+        return _wrap((result for element in self._generator for result in _iterable(flat_mapper(element))))
 
     def as_tuple(self) -> Tuple[T]:
         self._consume()
         return tuple(self._generator)
-
-    def _wrap(self, iterable):
-        return Stream(iterable)
-
-    def _iterable(self, iterable):
-        return iterable if iterable else ()

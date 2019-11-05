@@ -12,8 +12,7 @@ def mapper(x: int) -> int:
 
 
 def flat_generator(x: int) -> Iterable[int]:
-    for index in range(x):
-        yield x
+    return (x for _ in range(x))
 
 
 def flat_list(x: int) -> Iterable[int]:
@@ -50,7 +49,7 @@ class TestStream:
 
         assert_that(result).contains_only(1, 2, 2)
 
-    def test_flat_map_handles_none_result(self):
+    def test_flat_map_none(self):
         result = self.uut.flat_map(lambda x: None).as_tuple()
 
         assert_that(result).is_empty()
