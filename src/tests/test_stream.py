@@ -1,5 +1,6 @@
 from typing import Iterable
 
+import pytest
 from assertpy import assert_that
 from pytest import raises
 
@@ -21,17 +22,17 @@ def flat_list(x: int) -> Iterable[int]:
 
 class TestConsumable:
 
-    def setup(self):
-        self.uut = Consumable()
+    @pytest.fixture
+    def uut(self): return Consumable()
 
-    def test_single_call_passes(self):
-        self.uut._consume()
+    def test_single_call_passes(self, uut):
+        uut._consume()
 
-    def test_second_call_raises(self):
-        self.uut._consume()
+    def test_second_call_raises(self, uut):
+        uut._consume()
 
         with raises(AlreadyConsumedException):
-            self.uut._consume()
+            uut._consume()
 
 
 class TestStream:

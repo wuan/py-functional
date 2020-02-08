@@ -13,7 +13,7 @@ install:
   - pip list
 
 script:
-  - py.test -v --cov-report xml --cov=functional
+  - py.tests -v --cov-report xml --cov=functional
 
 after_success:
   - python-codacy-coverage -r coverage.xml

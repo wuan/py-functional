@@ -17,10 +17,9 @@ class Timer():
 
     def __exit__(self, type, value, traceback):
         self.checkpoint('done')
-        pass
 
     def checkpoint(self, name=''):
-        print('{timer}: {checkpoint} in {elapsed} seconds'.format(
+        print('{timer}: {checkpoint} in {elapsed:.3f} seconds'.format(
             timer=self.name,
             checkpoint=name,
             elapsed=self.elapsed,
