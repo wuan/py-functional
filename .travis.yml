@@ -9,7 +9,7 @@ python:
 install:
   # install deps
   - pip install -r requirements.txt
-  - pip install pytest-cov mock assertpy codacy-coverage
+  - pip install codacy-coverage
   - pip list
 
 script:
