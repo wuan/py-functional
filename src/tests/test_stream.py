@@ -22,8 +22,9 @@ def flat_list(x: int) -> Iterable[int]:
 
 class TestConsumable:
 
-    @pytest.fixture
-    def uut(self): return Consumable()
+    @pytest.fixture(name="uut")
+    @staticmethod
+    def uut(): return Consumable()
 
     def test_single_call_passes(self, uut):
         uut._consume()

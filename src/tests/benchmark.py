@@ -15,7 +15,7 @@ class Timer():
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, *_):
         self.checkpoint('done')
 
     def checkpoint(self, name=''):
