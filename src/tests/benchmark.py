@@ -32,6 +32,9 @@ if __name__ == '__main__':
     lambda1 = lambda x: x * 2
     lambda2 = lambda x: x * x
 
+    def func1(x): return x * 2
+    def func2(x): return x * x
+
     with Timer('Stream'):
         result = Stream(range(iterations)) \
             .map(lambda1) \
@@ -64,5 +67,12 @@ if __name__ == '__main__':
         result = range(iterations)
         result = (lambda1(x) for x in result)
         result = (lambda2(x) for x in result)
+        result = tuple(result)
+        assert len(result) == iterations
+
+    with Timer('Generator Function'):
+        result = range(iterations)
+        result = (func1(x) for x in result)
+        result = (func2(x) for x in result)
         result = tuple(result)
         assert len(result) == iterations
