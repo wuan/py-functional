@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar, Generic, Tuple, Iterable, Any, Union, Generator
+from typing import Callable, TypeVar, Generic, Tuple, Iterable
 
 T = TypeVar('T')
 U = TypeVar('U')
@@ -28,7 +28,6 @@ def _iterable(iterable):
 
 
 class Stream(Generic[T], Consumable):
-
     _generator: Iterable[T]
 
     def __init__(self, generator=None):
