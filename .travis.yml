@@ -14,6 +14,7 @@ install:
 
 script:
   - pytest --cov-report xml:reports/coverage.xml --cov-report term --cov=functional --junitxml=reports/junit.xml
+  - mypy src/functional
 
 after_success:
   - python-codacy-coverage -r reports/coverage.xml
