@@ -27,7 +27,7 @@ class Timer():
 
 
 if __name__ == '__main__':
-    iterations = 1000000
+    iterations = 5000000
 
     lambda1 = lambda x: x * 2
     lambda2 = lambda x: x * x

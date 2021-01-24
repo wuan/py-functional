@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar, Generic, Tuple, Iterable
+from typing import Callable, TypeVar, Generic, Tuple, Iterable, Any, Union, Generator
 
 T = TypeVar('T')
 U = TypeVar('U')
@@ -29,9 +29,11 @@ def _iterable(iterable):
 
 class Stream(Generic[T], Consumable):
 
+    _generator: Iterable[T]
+
     def __init__(self, generator=None):
         super().__init__()
-        self._generator = generator if generator else tuple()
+        self._generator = generator if generator else iter(())
 
     def map(self, mapper: Callable[[T], U]) -> 'Stream[U]':
         self._consume()
@@ -41,6 +43,6 @@ class Stream(Generic[T], Consumable):
         self._consume()
         return _wrap((result for element in self._generator for result in _iterable(flat_mapper(element))))
 
-    def as_tuple(self) -> Tuple[T]:
+    def as_tuple(self) -> Tuple[T, ...]:
         self._consume()
         return tuple(self._generator)
