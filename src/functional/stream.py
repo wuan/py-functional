@@ -1,4 +1,4 @@
-from typing import Callable, TypeVar, Generic, Tuple, Iterable
+from typing import Callable, TypeVar, Generic, Tuple, Iterable, Optional
 
 T = TypeVar('T')
 U = TypeVar('U')
@@ -19,12 +19,12 @@ class Consumable:
         self.consumed = True
 
 
-def _wrap(iterable):
+def _wrap(iterable: Iterable[T]) -> 'Stream[T]':
     return Stream(iterable)
 
 
-def _iterable(iterable):
-    return iterable if iterable else ()
+def _iterable(iterable: Optional[Iterable[T]]) -> Iterable[T]:
+    return iterable if iterable else iter(())
 
 
 class Stream(Generic[T], Consumable):
