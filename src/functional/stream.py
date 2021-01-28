@@ -30,7 +30,7 @@ def _iterable(iterable: Optional[Iterable[T]]) -> Iterable[T]:
 class Stream(Generic[T], Consumable):
     _generator: Iterable[T]
 
-    def __init__(self, generator=None):
+    def __init__(self, generator: Optional[Iterable[T]] = None):
         super().__init__()
         self._generator = generator if generator else iter(())
 
@@ -40,7 +40,8 @@ class Stream(Generic[T], Consumable):
 
     def flat_map(self, flat_mapper: Callable[[T], Iterable[U]]) -> 'Stream[U]':
         self._consume()
-        return _wrap((result for element in self._generator for result in _iterable(flat_mapper(element))))
+        return _wrap((result
+                      for element in self._generator for result in _iterable(flat_mapper(element))))
 
     def as_tuple(self) -> Tuple[T, ...]:
         self._consume()
