@@ -1,4 +1,0 @@
-pytest-cov
-mock
-assertpy
-mypy
