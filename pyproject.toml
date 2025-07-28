@@ -11,4 +11,5 @@ dev = [
     "assertpy>=1.1",
     "mock>=5.2.0",
     "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
 ]
