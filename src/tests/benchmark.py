@@ -49,7 +49,7 @@ if __name__ == '__main__':
         result = tuple(result)
         assert len(result) == iterations
 
-    with Timer('List Labmda'):
+    with Timer('List Lambda'):
         result = range(iterations)
         result = [lambda1(x) for x in result]
         result = [lambda2(x) for x in result]

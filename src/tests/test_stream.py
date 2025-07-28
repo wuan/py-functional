@@ -38,25 +38,26 @@ class TestConsumable:
 
 class TestStream:
 
-    def setup(self):
-        self.uut = Stream([0, 1, 2])
+    @pytest.fixture
+    def uut(self):
+        return Stream([0, 1, 2])
 
-    def test_map(self):
-        result = self.uut.map(mapper).as_tuple()
+    def test_map(self, uut):
+        result = uut.map(mapper).as_tuple()
 
         assert_that(result).contains_only(1, 2, 3)
 
-    def test_flat_map_generator(self):
-        result = self.uut.flat_map(flat_generator).as_tuple()
+    def test_flat_map_generator(self, uut):
+        result = uut.flat_map(flat_generator).as_tuple()
 
         assert_that(result).contains_only(1, 2, 2)
 
-    def test_flat_map_none(self):
-        result = self.uut.flat_map(lambda x: None).as_tuple()
+    def test_flat_map_none(self, uut):
+        result = uut.flat_map(lambda x: None).as_tuple()
 
         assert_that(result).is_empty()
 
-    def test_flat_map_list(self):
-        result = self.uut.flat_map(flat_list).as_tuple()
+    def test_flat_map_list(self, uut):
+        result = uut.flat_map(flat_list).as_tuple()
 
         assert_that(result).contains_only(1, 2, 2)
