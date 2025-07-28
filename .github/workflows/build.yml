@@ -34,4 +34,4 @@ jobs:
 
       - name: Run tests
         # For example, using `pytest`
-        run: uv run pytest src/tests --cov=functional --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
+        run: uv run pytest --cov=functional --cov-report xml:reports/coverage.xml --cov-report term --junitxml=reports/junit.xml
